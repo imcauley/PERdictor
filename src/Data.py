@@ -10,19 +10,23 @@ def get_data():
 
     with open(FILENAME) as f:
         reader = csv.reader(f)
-        for row, year, player, pos, *stats in reader:
+        for *row in reader:
+            if (_valid_row(row)):
 
-            if player in data:
-                data[player].add_year(year, stats)
+                index, year, player, pos, *stats = row
+                if player in data:
+                    data[player].add_year(year, stats)
 
-            else:
-                new_player = Player(player, pos)
-                data[player] = new_player
-                data[player].add_year(year, stats)
+                else:
+                    new_player = Player(player, pos)
+                    data[player] = new_player
+                    data[player].add_year(year, stats)
 
 
     return data
 
+def _valid_row(row):
+    return True
 
 if __name__ == '__main__':
     data = get_data()
