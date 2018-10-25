@@ -54,3 +54,4 @@ BLK | Blocks
 TOV | Turnovers
 PF | Personal Fouls
 PTS | Points
+TOT | Total
