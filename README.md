@@ -1,6 +1,7 @@
 # NBA Player Similarity
 
-A project for finding similarities of players in the NBA.
+A project for predicting Player Efficiency Rating (PER) for NBA players.
+
 
 [Data Source](https://www.kaggle.com/drgilermo/nba-players-stats/data)
 
