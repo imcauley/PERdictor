@@ -31,9 +31,15 @@ class Player:
         self.stats[year] = stats
 
     def _convert_stats(self, stats):
-        # TODO convert strings to floats
         # TODO only take relevant stats
-        # TODO encode Pos
 
-        stats = [(stats[5])]
-        return stats
+        relevant = []
+
+        for s in S_STATS:
+            relevant.append(float(stats[s]))
+
+        pos = POSITIONS.index([POS])
+
+        relevant.append(pos)
+
+        return relevant
