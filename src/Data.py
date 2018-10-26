@@ -1,10 +1,11 @@
 import csv
 import re
+import json
 
 from Player import Player
 
 
-FILENAME = '../data/Seasons_Stats.csv'
+FILENAME = '../data/Seasons_Stats_without_blanks.csv'
 
 def get_data():
     data = {}
@@ -29,9 +30,24 @@ def get_data():
 
     return data
 
+
+def create_position_mapping():
+    with open(FILENAME) as f:
+        reader = csv.reader(f)
+        next(reader, None)
+
+        positions = [row[3] for row in reader]
+
+    positions = list(set(positions))
+
+    with open("../data/Position_Mapping.json", "w") as f:
+        json.dump(positions, f, indent=2)
+
+
 def _clean_name(name):
     name = re.sub(r'\*', '', name)
     return name
+
 
 def _valid_row(row):
     # TODO only include TOT if exists
