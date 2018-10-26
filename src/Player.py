@@ -1,21 +1,24 @@
 import numpy as np
+from Globals import *
 
 class Player:
-    # Important Stats:
-    # G
-    # MP
-    # PER
-    # TS%
-    # 3PAr
-    # FTr
-    # ORB%
-    # DRB%
-    # AST%
-    # STL%
-    # BLK%
-    # WS
-    # VORP
-    # eFG%
+    # Selected Stats
+    S_STATS = [
+        GOA,
+        MP,
+        PER,
+        TS,
+        THPAR,
+        FTR,
+        ORB,
+        DRB,
+        AST,
+        STL,
+        BLK,
+        WS,
+        VORP,
+        EFG,
+    ]
 
 
     def __init__(self, name, pos):
