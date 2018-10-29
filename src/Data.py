@@ -15,7 +15,7 @@ def get_data():
         for row in reader:
             if (_valid_row(row)):
 
-                index, year, player, pos, *stats = row
+                index, year, player, *stats = row
                 
                 player = _clean_name(player)
 
@@ -23,7 +23,7 @@ def get_data():
                     data[player].add_year(year, stats)
 
                 else:
-                    new_player = Player(player, pos)
+                    new_player = Player(player)
                     data[player] = new_player
                     data[player].add_year(year, stats)
 
@@ -57,6 +57,9 @@ def _valid_row(row):
 
     for stat in row:
         if stat == None:
+            return False
+
+        if stat == '':
             return False
 
     return True
