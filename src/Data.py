@@ -1,6 +1,7 @@
 import csv
 import re
 import json
+import numpy as np
 
 from Player import Player
 
@@ -8,6 +9,28 @@ from Player import Player
 FILENAME = '../data/Seasons_Stats_without_blanks.csv'
 
 def get_data():
+    X = []
+    Y = []
+
+    raw = get_players()
+
+    for name, data in raw.items():
+        mat = np.asarray(data.stats)
+
+        seasons,_ = mat.shape
+        if seasons > 1:
+            new_x = mat
+            new_y = np.roll(new_x, -1, axis=0)
+
+            new_x = np.delete(new_x, 0, axis=0)
+            new_y = np.delete(new_y, -1, axis=0)
+
+            X.append(new_x)
+            Y.append(new_y)
+
+    return X, Y
+
+def get_players():
     data = {}
 
     with open(FILENAME) as f:
