@@ -1,7 +1,9 @@
 import numpy as np
 import keras
 import tensorflow as tf
+
 import Globals
+from Data import get_data
 
 class Model:
     def __init__(self, load=False):
@@ -21,13 +23,34 @@ class Model:
 
         self.model.compile(loss='mean_squared_error', optimizer='adam')
 
-    def train_model(self):
+    def get_data(self):
+        return get_data()
+
+    def train_model(self, test_perc=0.2):
+        data = self.get_data()
+        np.random.shuffle(data)
+
+        if test_perc:
+            test_len = int(len(x) * test_perc)
+            train = [test_len:]data
+            test = [:test_len]
+
+            test_x, test_y = map(list, zip(*test))
+            train_x, train_y = map(list, zip(*train))
+
+        else:
+            train_x, train_y = map(list, zip(*data))
+
+        history = self.model.fit(train_x, train_y, epochs=3)
+
+        if test_perc:
+            test = self.model.evaluate(test_x, test_y)
+        else:
+            test = 0.0
+
         self.model.save(self.filepath)
 
-    def test_model(self):
-        pass
-
-    
+        return test
 
 
 if __name__ == '__main__':
