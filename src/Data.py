@@ -4,30 +4,45 @@ import json
 import numpy as np
 
 from Player import Player
+import Globals
 
 
 FILENAME = '../data/Seasons_Stats_without_blanks.csv'
 
 def get_data():
-    X = []
-    Y = []
-
     raw = get_players()
+
+    max_seasons = 0
+    for name, data in raw.items():
+        mat = np.asarray(data.stats)
+        seasons,_ = mat.shape
+        if seasons > max_seasons:
+            max_seasons = seasons
+
+    X = np.empty((max_seasons - 1, len(Globals.FEATURES), 0))
+    Y = np.empty((max_seasons - 1, len(Globals.FEATURES), 0))
 
     for name, data in raw.items():
         mat = np.asarray(data.stats)
 
         seasons,_ = mat.shape
         if seasons > 1:
-            new_x = mat
+            padding_seasons = max_seasons - seasons
+            padding = np.zeros((padding_seasons, len(Globals.FEATURES)))
+
+            new_x = np.concatenate((mat, padding))
             new_y = np.roll(new_x, -1, axis=0)
 
             new_x = np.delete(new_x, 0, axis=0)
             new_y = np.delete(new_y, -1, axis=0)
 
-            X.append(new_x)
-            Y.append(new_y)
+            X = np.dstack((X,new_x))
+            Y = np.dstack((Y,new_y))
 
+    X = np.swapaxes(X, 0, 2)
+    Y = np.swapaxes(Y, 0, 2)
+    X = np.swapaxes(X, 1, 2)
+    Y = np.swapaxes(Y, 1, 2)
     return X, Y
 
 def get_players():
