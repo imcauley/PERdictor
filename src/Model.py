@@ -4,8 +4,14 @@ import tensorflow as tf
 import Globals
 
 class Model:
-    def __init__(self):
-        self.build_model()
+    def __init__(self, load=False):
+        self.filepath = '../models/PER_model'
+
+        if load:
+            keras.models.load_model(self.filepath)
+        else:
+            self.build_model()
+
 
     def build_model(self):
         self.model = keras.Sequential([
@@ -15,12 +21,15 @@ class Model:
 
         self.model.compile(loss='mean_squared_error', optimizer='adam')
 
-    def train_model():
+    def train_model(self):
+        self.model.save(self.filepath)
+
+    def test_model(self):
         pass
 
-    def test_model():
-        pass
+    
 
 
 if __name__ == '__main__':
     m = Model()
+    m.train_model()
