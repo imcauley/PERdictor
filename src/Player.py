@@ -2,27 +2,7 @@ import numpy as np
 from Globals import *
 
 class Player:
-    # Selected Stats
-
-
     def __init__(self, name):
-        self.S_STATS = [
-            GOA,
-            MP,
-            PER,
-        TS,
-        THPAR,
-        FTR,
-        ORB,
-        DRB,
-        AST,
-        STL,
-        BLK,
-        WS,
-        VORP,
-            EFG,
-        ]
-
         self.name = name
         self.stats = []
 
@@ -33,7 +13,15 @@ class Player:
     def _convert_stats(self, stats):
         relevant = []
 
-        for s in self.S_STATS:
-            relevant.append(float(stats[s]))
+        for f in FEATURES:
+            stat = self._normalize(stats[f], f)
+            relevant.append(stat)
 
         return relevant
+
+    def _normalize(self, num, feature):
+        #TODO age
+        #TODO games
+        #TODO pos
+
+        return np.float32(num)
