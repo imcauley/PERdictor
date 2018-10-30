@@ -6,7 +6,7 @@ with open("../data/Position_Mapping.json") as f:
 POS = 0
 AGE = 1
 TM = 2
-GOA = 3
+GAM = 3
 GS = 4
 MP = 5
 PER = 6
@@ -51,3 +51,21 @@ BLK = 44
 TOV = 45
 PF = 46
 PTS = 47
+
+FEATURES = [
+    PER,
+    AGE,
+    GAM,
+    MP,
+    TS,
+    THPAR,
+    FTR,
+    ORB,
+    DRB,
+    AST,
+    STL,
+    BLK,
+    WS,
+    VORP,
+    EFG,
+    ]
