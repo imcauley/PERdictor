@@ -27,16 +27,15 @@ class Model:
         return get_data()
 
     def train_model(self, test_perc=0.2):
-        data = self.get_data()
-        np.random.shuffle(data)
+        x, y = self.get_data()
 
         if test_perc:
             test_len = int(len(x) * test_perc)
-            train = [test_len:]data
-            test = [:test_len]
 
-            test_x, test_y = map(list, zip(*test))
-            train_x, train_y = map(list, zip(*train))
+            test_x = x[:test_len]
+            test_y = y[:test_len]
+            train_x = x[test_len:]
+            train_y = y[test_len:]
 
         else:
             train_x, train_y = map(list, zip(*data))
