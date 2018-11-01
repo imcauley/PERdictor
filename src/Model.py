@@ -17,8 +17,8 @@ class Model:
 
     def build_model(self):
         self.model = keras.Sequential([
-            keras.layers.SimpleRNN(64, activation=tf.nn.relu, input_shape=(None, len(Globals.FEATURES))),
-            keras.layers.Dense(len(Globals.FEATURES))
+            keras.layers.LSTM(64, activation=tf.nn.relu, input_shape=(28, 15), return_sequences=True),
+            keras.layers.Dense(15)
         ])
 
         self.model.compile(loss='mean_squared_error', optimizer='adam')
