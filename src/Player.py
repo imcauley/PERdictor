@@ -31,6 +31,13 @@ class Player:
             num -= 18
             num /= 30
 
-        #TODO games
+        elif feature == GAM:
+            num = int(num)
+            num /= 82
+
+        # TODO PER
+        # TODO MP
+        # TODO ORB
+        # TODO DRB
 
         return np.float32(num)
