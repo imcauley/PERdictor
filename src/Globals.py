@@ -53,6 +53,7 @@ PF = 46
 PTS = 47
 
 FEATURES = [
+    POS,
     PER,
     AGE,
     GAM,
