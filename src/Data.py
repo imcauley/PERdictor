@@ -56,15 +56,13 @@ def _convert_stats_to_matrix(player, with_output=True, full_size=29):
 
     return new_x
 
+def get_player(name):
+    all_players = get_players()
+    player = all_players[name]
 
-            X = np.dstack((X,new_x))
-            Y = np.dstack((Y,new_y))
+    mat = _convert_stats_to_matrix(player, with_output=False)
 
-    X = np.swapaxes(X, 0, 2)
-    Y = np.swapaxes(Y, 0, 2)
-    X = np.swapaxes(X, 1, 2)
-    Y = np.swapaxes(Y, 1, 2)
-    return X, Y
+    print(mat.shape)
 
 def get_players():
     data = {}
