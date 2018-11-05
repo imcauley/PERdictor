@@ -62,7 +62,7 @@ def get_player(name):
 
     mat = _convert_stats_to_matrix(player, with_output=False)
 
-    print(mat.shape)
+    return mat
 
 def get_players():
     data = {}
