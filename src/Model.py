@@ -51,6 +51,34 @@ class Model:
 
         return test
 
+    def predict_next_season(self, name):
+        #convert to stats matrix
+        stats = get_player(name)
+        #find last season
+        for number, season in enumerate(stats):
+            if self._is_empty_season(season):
+                season_to_predict = number
+                break
+
+        stats = np.expand_dims(stats, 0)
+
+        #predict output vector
+        output_vector = self.model.predict(stats)
+
+        #get the next season
+        output_stats = output_vector[0]
+        next_season = output_stats[season_to_predict]
+
+        print(output_stats)
+
+    def _is_empty_season(self, season):
+        for stat in season:
+            if stat != 0:
+                break
+        else:
+            return True
+
+        return False
 
 if __name__ == '__main__':
     m = Model()
