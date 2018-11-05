@@ -23,18 +23,39 @@ def get_data():
     Y = np.empty((max_seasons - 1, len(Globals.FEATURES), 0))
 
     for name, data in raw.items():
-        mat = np.asarray(data.stats)
+        seasons = len(data.stats)
 
-        seasons,_ = mat.shape
         if seasons > 1:
-            padding_seasons = max_seasons - seasons
-            padding = np.zeros((padding_seasons, len(Globals.FEATURES)))
+            new_x, new_y = _convert_stats_to_matrix(data)
 
-            new_x = np.concatenate((mat, padding))
-            new_y = np.roll(new_x, -1, axis=0)
+            X = np.dstack((X,new_x))
+            Y = np.dstack((Y,new_y))
 
-            new_x = np.delete(new_x, 0, axis=0)
-            new_y = np.delete(new_y, -1, axis=0)
+    X = np.swapaxes(X, 0, 2)
+    Y = np.swapaxes(Y, 0, 2)
+    X = np.swapaxes(X, 1, 2)
+    Y = np.swapaxes(Y, 1, 2)
+    return X, Y
+
+def _convert_stats_to_matrix(player, with_output=True, full_size=29):
+    mat = np.asarray(player.stats)
+    seasons = len(player.stats)
+
+    padding_seasons = full_size - seasons
+    padding = np.zeros((padding_seasons, len(Globals.FEATURES)))
+
+    new_x = np.concatenate((mat, padding))
+    if with_output:
+        new_y = np.roll(new_x, -1, axis=0)
+
+    new_x = np.delete(new_x, 0, axis=0)
+    if with_output:
+        new_y = np.delete(new_y, -1, axis=0)
+        return new_x, new_y
+
+
+    return new_x
+
 
             X = np.dstack((X,new_x))
             Y = np.dstack((Y,new_y))
