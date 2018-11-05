@@ -20,8 +20,10 @@ class Player:
         return relevant
 
     def _normalize(self, num, feature):
+
         if feature == POS:
             num = POSITIONS.index(num)
+            num /= len(POSITIONS)
 
         elif feature == AGE:
             #Age required to play in NBA: 18
@@ -35,9 +37,20 @@ class Player:
             num = int(num)
             num /= 82
 
-        # TODO PER
-        # TODO MP
-        # TODO ORB
-        # TODO DRB
+        elif feature == PER:
+            num = float(num) / 35
 
+        elif feature == MP:
+            num = float(num) / (82*48)
+
+        elif feature == ORBP:
+            num = float(num) / 100
+        elif feature == DRBP:
+            num = float(num) / 100
+        elif feature == ASTP:
+            num = float(num) / 100
+        elif feature == STLP:
+            num = float(num) / 100
+        elif feature == BLKP:
+            num = float(num) / 100
         return np.float32(num)
