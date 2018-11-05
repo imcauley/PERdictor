@@ -13,12 +13,12 @@ PER = 6
 TS = 7
 THPAR = 8
 FTR = 9
-ORB = 10
-DRB = 11
+ORBP = 10
+DRBP = 11
 TRB = 12
-AST = 13
-STL = 14
-BLK = 15
+ASTP = 13
+STLP = 14
+BLKP = 15
 TOV = 16
 USG = 17
 OWS = 18
@@ -61,12 +61,11 @@ FEATURES = [
     TS,
     THPAR,
     FTR,
-    ORB,
-    DRB,
-    AST,
-    STL,
-    BLK,
-    WS,
-    VORP,
+    ORBP,
+    DRBP,
+    ASTP,
+    STLP,
+    BLKP,
+    WSA,
     EFG,
     ]
