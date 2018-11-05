@@ -3,14 +3,14 @@ import keras
 import tensorflow as tf
 
 import Globals
-from Data import get_data
+from Data import get_data, get_player
 
 class Model:
     def __init__(self, load=False):
         self.filepath = '../models/PER_model'
 
         if load:
-            keras.models.load_model(self.filepath)
+            self.model = keras.models.load_model(self.filepath)
         else:
             self.build_model()
 
