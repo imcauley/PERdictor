@@ -20,14 +20,17 @@ def get_data():
             max_seasons = seasons
 
     X = np.empty((max_seasons - 1, len(Globals.FEATURES), 0))
-    Y = np.empty((max_seasons - 1, len(Globals.FEATURES), 0))
+    Y = np.empty((max_seasons - 1, 1, 0))
 
     for name, data in raw.items():
         seasons = len(data.stats)
 
         if seasons > 1:
             new_x, new_y = _convert_stats_to_matrix(data)
-
+            new_y = new_y[:,1]
+            new_y = [np.asarray([x]) for x in new_y]
+            # print(new_y[:,1].shape)
+            # exit()
             X = np.dstack((X,new_x))
             Y = np.dstack((Y,new_y))
 
@@ -35,6 +38,9 @@ def get_data():
     Y = np.swapaxes(Y, 0, 2)
     X = np.swapaxes(X, 1, 2)
     Y = np.swapaxes(Y, 1, 2)
+
+    print(X.shape)
+    print(Y.shape)
     return X, Y
 
 def _convert_stats_to_matrix(player, with_output=True, full_size=29):

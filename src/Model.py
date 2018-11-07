@@ -17,16 +17,18 @@ class Model:
 
     def build_model(self):
         self.model = keras.Sequential([
-            keras.layers.LSTM(64, activation=tf.nn.relu, input_shape=(28, len(Globals.FEATURES)), return_sequences=True),
-            keras.layers.Dense(len(Globals.FEATURES))
+            keras.layers.LSTM(64, activation=tf.nn.relu, input_shape=(None, len(Globals.FEATURES)), return_sequences=True),
+            keras.layers.Dense(1, activation='sigmoid')
         ])
+
+        print(self.model.summary(90))
 
         self.model.compile(loss='mean_squared_error', optimizer='adam')
 
     def get_data(self):
         return get_data()
 
-    def train_model(self, test_perc=0.2):
+    def train_model(self, test_perc=0.3):
         x, y = self.get_data()
 
         if test_perc:
