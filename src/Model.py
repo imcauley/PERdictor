@@ -42,7 +42,7 @@ class Model:
         else:
             train_x, train_y = map(list, zip(*data))
 
-        history = self.model.fit(train_x, train_y, epochs=3)
+        history = self.model.fit(train_x, train_y, epochs=10)
 
         if test_perc:
             test = self.model.evaluate(test_x, test_y)
